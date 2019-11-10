@@ -34,7 +34,7 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.CreateViewHolder
 
         public CreateViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = textView;
+            view = itemView;
 
             textView = view.findViewById(R.id.title);
         }
@@ -51,7 +51,6 @@ public class ApiAdapter extends RecyclerView.Adapter<ApiAdapter.CreateViewHolder
     @Override
     public void onBindViewHolder(@NonNull CreateViewHolder holder, int position) {
         holder.textView.setText(retroPeople.get(position).getName());
-
         Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
         builder.build().load(retroPeople.get(position).getAge())

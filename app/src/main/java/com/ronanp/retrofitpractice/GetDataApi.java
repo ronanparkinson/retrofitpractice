@@ -8,6 +8,6 @@ import retrofit2.http.GET;
 
 public interface GetDataApi {
 
-    @GET("/apitest")
-    Call<List<RetroPerson>> getAllPeople();
+    @GET("/apitest/apitest1.php")
+    Call<RetroPerson> getAllPeople();
 }

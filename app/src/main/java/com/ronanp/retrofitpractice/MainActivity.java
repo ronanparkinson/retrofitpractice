@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,24 +33,26 @@ public class MainActivity extends AppCompatActivity {
         progressDoalog.show();
 
         GetDataApi dataApi = RetrofitApi.getRetrofitInstance().create(GetDataApi.class);
-        Call<List<RetroPerson>> call = dataApi.getAllPeople();
-        call.enqueue(new Callback<List<RetroPerson>>() {
+        Call<RetroPerson> call = dataApi.getAllPeople();
+        call.enqueue(new Callback<RetroPerson>() {
             @Override
-            public void onResponse(Call<List<RetroPerson>> call, Response<List<RetroPerson>> response) {
+            public void onResponse(Call<RetroPerson> call, Response<RetroPerson> response) {
+               // adapter.notifyDataSetChanged();
                 progressDoalog.dismiss();
-                generateDataList(response.body());
+                Log.d("", response.body().toString());
             }
 
             @Override
-            public void onFailure(Call<List<RetroPerson>> call, Throwable t) {
+            public void onFailure(Call<RetroPerson> call, Throwable t) {
                 progressDoalog.dismiss();
+                Log.getStackTraceString(t);
                 Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private void generateDataList(List<RetroPerson> photoList) {
-        recyclerView = findViewById(R.id.parent);
-        adapter = new ApiAdapter(this,photoList);
+    private void generateDataList(List<RetroPerson> retroPeople) {
+        recyclerView =  findViewById(R.id.RecyclerView);
+        adapter = new ApiAdapter(this,retroPeople);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
