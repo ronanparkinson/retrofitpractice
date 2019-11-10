@@ -5,15 +5,15 @@ public class RetroPerson {
     private int age;
     private String city;
 
-    private String getName(){
+    public String getName(){
         return name;
     }
 
-    private int getAge(){
+    public int getAge(){
         return age;
     }
 
-    private String getCity(){
+    public String getCity(){
         return city;
     }
 }
